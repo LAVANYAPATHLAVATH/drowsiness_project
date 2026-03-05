@@ -1,12 +1,11 @@
-#! /home/shankar/Desktop/drowsiness_project/drowsy_env/bin/python
+import cv2
 import dlib
 import time
 from scipy.spatial import distance
 from imutils import face_utils
-from playsound import playsound
-import threading
+import pyttsx3
 
-# Function to compute Eye Aspect Ratio (EAR)
+
 def eye_aspect_ratio(eye):
     A = distance.euclidean(eye[1], eye[5])  # vertical
     B = distance.euclidean(eye[2], eye[4])  # vertical
@@ -14,11 +13,21 @@ def eye_aspect_ratio(eye):
     ear = (A + B) / (2.0 * C)
     return ear
 
-# Function to play alert sound in a separate thread
-def sound_alert():
-    playsound('alert.wav')
+engine = pyttsx3.init()
 
-# Thresholds
+# Alert flag
+alert_playing = False
+
+
+def sound_alert():
+    global alert_playing
+    if not alert_playing:
+        alert_playing = True
+        engine.say("Alert! Wake up!")
+        engine.runAndWait()
+        alert_playing = False
+
+
 EAR_THRESHOLD = 0.25
 CONSEC_FRAMES = 20
 frame_count = 0
@@ -26,9 +35,9 @@ frame_count = 0
 # Load models
 print("[INFO] Loading facial landmark predictor...")
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")  # Download required
+predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
-# Eye landmark positions
+
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
@@ -68,12 +77,13 @@ while True:
         # Check EAR threshold
         if ear < EAR_THRESHOLD:
             frame_count += 1
-            if frame_count >= CONSEC_FRAMES:
-                cv2.putText(frame, "DROWSINESS DETECTED!", (20, 30),
+            if frame_count >= CONSEC_FRAMES and not alert_playing:
+                cv2.putText(frame, "ALERT!", (20, 30),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-                threading.Thread(target=sound_alert).start()
+                sound_alert()
         else:
             frame_count = 0
+            alert_playing = False  
 
         # Show EAR value
         cv2.putText(frame, f"EAR: {ear:.2f}", (500, 30),
@@ -82,7 +92,7 @@ while True:
     cv2.imshow("Drowsiness Detection", frame)
 
     key = cv2.waitKey(1)
-    if key == 27:  # ESC key to exit
+    if key == 27:  
         break
 
 cap.release()
