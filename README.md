@@ -89,8 +89,4 @@ This project demonstrates the practical application of Artificial Intelligence a
 **Pathlavath Lavanya**
 
 - GitHub: https://github.com/LAVANYAPATHLAVATH
-- LinkedIn: https://www.linkedin.com/in/pathlavath-lavanya
-
-## Live Demo
-
-https://drowsiness-project.vercel.app
+- LinkedIn: https://www.linkedin.com/in/pathlavathlavanya
