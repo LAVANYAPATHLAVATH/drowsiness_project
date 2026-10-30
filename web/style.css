@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0b1120;
+  color: white;
+  min-height: 100vh;
+  padding: 30px 15px;
+}
+
+.container {
+  max-width: 850px;
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 32px;
+  color: #38bdf8;
+  margin: 20px 0 10px;
+}
+
+.subtitle {
+  color: #94a3b8;
+  margin-bottom: 30px;
+}
+
+.camera-box {
+  position: relative;
+  background: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 15px;
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+video {
+  width: 100%;
+  max-height: 480px;
+  display: block;
+  transform: scaleX(-1);
+}
+
+#cameraMessage {
+  position: absolute;
+  color: #cbd5e1;
+  background: #0f172a;
+  padding: 12px 18px;
+  border-radius: 8px;
+}
+
+.status-card {
+  background: #1e293b;
+  margin: 25px 0;
+  padding: 22px;
+  border-radius: 12px;
+}
+
+#status {
+  color: #facc15;
+  margin-bottom: 10px;
+}
+
+#earValue {
+  color: #94a3b8;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 13px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#startBtn {
+  background: #16a34a;
+  color: white;
+}
+
+#stopBtn {
+  background: #dc2626;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+#message {
+  margin-top: 22px;
+  color: #38bdf8;
+}
+
+.note {
+  margin-top: 35px;
+  color: #64748b;
+  font-size: 13px;
+}
